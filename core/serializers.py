@@ -16,6 +16,7 @@ class TagSerializer(serializers.ModelSerializer):
         }
 
 
+
 class PostSerializer(TaggitSerializer, serializers.ModelSerializer):
 
     tags = TagListSerializerField()
