@@ -13,6 +13,12 @@ class TagView(generics.ListAPIView):
     permission_classes = [permissions.AllowAny]
 
 
+class AsideView(generics.ListAPIView):
+    queryset = Post.objects.all().order_by('-id')[:5]
+    serializer_class = PostSerializer
+    permission_classes = [permissions.AllowAny]
+
+
 class PageNumberSetPagination(pagination.PageNumberPagination):
     page_size = 6
     page_size_query_param = 'page_size'
