@@ -49,6 +49,7 @@ class TagDetailView(generics.ListAPIView):
     pagination_class = PageNumberSetPagination
     permission_classes = [permissions.AllowAny]
 
+
     def get_queryset(self):
         tag_slug = self.kwargs['tag_slug'].lower()
         tag = Tag.objects.get(slug=tag_slug)
