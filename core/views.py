@@ -1,10 +1,7 @@
-from rest_framework import viewsets
 from rest_framework.response import Response
 from core.serializers import PostSerializer, TagSerializer, ContactSerailizer
 from core.models import Post
-from rest_framework import permissions
-from rest_framework import generics
-from rest_framework import pagination
+from rest_framework import permissions, filters, generics, pagination, viewsets
 from taggit.models import Tag
 from rest_framework.views import APIView
 from django.core.mail import send_mail
@@ -32,8 +29,6 @@ class FeedBackView(APIView):
     permission_classes = [permissions.AllowAny]
     serializer_class = ContactSerailizer
 
-
-
     def post(self, request, *args, **kwargs):
         serializer_class = ContactSerailizer(data=request.data)
         if serializer_class.is_valid():
@@ -58,6 +53,8 @@ class TagDetailView(generics.ListAPIView):
 
 
 class PostViewSet(viewsets.ModelViewSet):
+    search_fields = ['$content', '$h1']
+    filter_backends = (filters.SearchFilter,)
     serializer_class = PostSerializer
     queryset = Post.objects.all()
     lookup_field = 'slug'
