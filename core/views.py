@@ -95,3 +95,4 @@ class CommentView(generics.ListCreateAPIView):
         post_slug = self.kwargs['post_slug']
         post = Post.objects.get(slug=post_slug)
         return Comment.objects.filter(post=post)
+
